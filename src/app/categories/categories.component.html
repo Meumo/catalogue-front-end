@@ -1,0 +1,8 @@
+<div class="row">
+    <ul class="list-group" *ngIf="categories">
+        <li [ngClass]="currentCategory && currentCategory._links.self==c._links.self?'active':''" (click)="onGetProducts(c)" style="cursor: pointer;"
+            class="list-group-item" *ngFor="let c of categories._embedded.categories">
+            {{c.name}}
+        </li>
+    </ul>
+</div>

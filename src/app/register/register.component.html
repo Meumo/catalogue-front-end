@@ -1,0 +1,42 @@
+<div class="alert alert-danger" *ngIf="mode=='add' && errorMessage">
+    <strong>{{errorMessage}} !!</strong>
+</div>
+<div class="panel panel-primary col-md-5 col-md-offset-3" *ngIf="mode=='add'">
+    <div class="panel-heading">
+        <h3 class="panel-title">Registration</h3>
+    </div>
+    <div class="panel-body">
+        <form #f="ngForm" (ngSubmit)="onSave(f.value)">
+            <div class="form-group">
+                <label class="control-label">Username : </label>
+                <input type="text" name="username" class="form-control" ngModel required>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Password : </label>
+                <input type="password" name="password" class="form-control" ngModel required>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Confirm Pasword : </label>
+                <input type="password" name="confirmedPassword" class="form-control" ngModel required>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]='!f.valid'>Register</button>
+        </form>
+    </div>
+</div>
+<div class="panel panel-success col-md-5 col-md-offset-3" *ngIf="mode=='list'">
+    <div class="panel-heading">
+        <h3 class="panel-title">Registration</h3>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="control-label"> Your Username : </label>
+            <label class="control-label">{{user.username}}</label>
+        </div>
+        <div class="form-group">
+            <label class="control-label"> Your Password : </label>
+            <label class="control-label">{{user.password}}</label>
+        </div> 
+        <button type="submit" (click)="onNewRegister()" class="btn btn-success">New Register</button>&nbsp;&nbsp;
+        <button type="submit" (click)="onLogin()" class="btn btn-primary">Login</button>
+    </div>
+</div>

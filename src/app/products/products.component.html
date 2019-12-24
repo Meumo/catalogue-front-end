@@ -1,0 +1,23 @@
+
+<div class="panel panel-primary">
+      <div class="panel-heading">
+            <h3 class="panel-title">PRODUITS</h3>
+      </div>
+      <div class="panel-body">
+            
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                     <th>DESIGNATION</th> <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of products._embedded.products">
+                        <td>{{p.designation}}</td>
+                        <td>{{p.price|number:'1.0-0'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+      </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Gestion des Produits</h3>
+    </div>
+    <div class="panel-body">
+        <div>
+            <button (click)="add()" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+        </div>
+        <p></p>
+        <div *ngIf="mode=='list'">
+            <form #f="ngForm" (ngSubmit)="onSearch(f.value)">
+                <input type="text" name="motCle" ngModel [(ngModel)]="motCle">&nbsp;
+                <button class="btn btn-primary" type="submit" (click)="onSearch()">Search<span class="glyphicon glyphicon-search"></span></button>
+            </form>
+        </div>
+        <div class="col-md-5" *ngIf="mode=='add'">
+            <form #f="ngForm" (ngSubmit)="onAdd(f.value)">
+                <div class="form-group">
+                    <label class="control-label">Categorie : </label><br />
+                    <select name="category" id="category" ngModel>
+                        <option *ngFor="let c of categories._embedded.categories" value="{{c.name}}">{{c.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Designation : </label>
+                    <input type="text" name="designation" ngModel class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Price : </label>
+                    <input type="number" name="price" ngModel class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">Save</button>
+            </form>
+        </div>
+        <div class="col-md-5" *ngIf="mode=='edit'">
+            <form #f="ngForm" (ngSubmit)="onUpdate(f.value)">
+                <div class="form-group">
+                    <label class="control-label">Designation : </label>
+                    <input type="text" name="designation" ngModel class="form-control"
+                        [(ngModel)]="currentProduct.designation">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Price : </label>
+                    <input type="number" name="price" ngModel class="form-control" [(ngModel)]="currentProduct.price">
+                </div>
+                <button type="submit" class="btn btn-success">Update</button>
+            </form>
+        </div>
+        <table class="table table-striped" *ngIf="mode=='list'">
+            <thead>
+                <tr>
+                    <th>Designation</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of products._embedded.products">
+                    <td>{{p.designation}}</td>
+                    <td>{{p.price|number:'0.2'}}</td>
+                    <td><button class="btn btn-danger" (click)="onDelete(p)"><span
+                                class="glyphicon glyphicon-remove"></span></button></td>
+                    <td><button class="btn btn-success" (click)="onEdit(p)"><span
+                                class="glyphicon glyphicon-edit"></span></button></td>
+                </tr>
+            </tbody>
+        </table>
+        <ul class="nav nav-pills" *ngIf="mode=='list'">
+            <li *ngFor="let p of tabPages; let i=index" [ngClass]="{'active': page==i}" class="clickable">
+                <a (click)="goToPage(i)">{{i+1}}</a>
+            </li>
+        </ul>
+    </div>
+</div>

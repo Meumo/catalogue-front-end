@@ -1,0 +1,48 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Gestion des Categories</h3>
+    </div>
+    <div class="panel-body">
+        <div>
+            <button (click)="add()" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+        </div>
+        <div class="col-md-5" *ngIf="mode=='add'">
+            <form #f="ngForm" (ngSubmit)="onAdd(f.value)">
+                <div class="form-group">
+                    <label class="control-label">Name : </label>
+                    <input type="text" name="name" ngModel class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">Save</button>
+            </form>
+        </div>
+
+        <div class="col-md-5" *ngIf="mode=='edit'">
+            <form #f="ngForm" (ngSubmit)="onUpdate(f.value)">
+                <div class="form-group">
+                    <label class="control-label">Name : </label>
+                    <input type="text" name="name" ngModel class="form-control" [(ngModel)]="currentCategory.name">
+                </div>
+                <button type="submit" class="btn btn-success">Edit</button>
+            </form>
+        </div>
+
+        <p></p>
+        <table class="table table-striped" *ngIf="mode=='list'">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let c of categories._embedded.categories">
+                    <td>{{c.name}}</td>
+                    <td><button class="btn btn-danger" (click)="onDelete(c)"><span
+                                class="glyphicon glyphicon-remove"></span></button></td>
+                    <td><button class="btn btn-success" (click)="onEdit(c)"><span
+                                class="glyphicon glyphicon-edit"></span></button></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
